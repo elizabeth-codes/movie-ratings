@@ -17,5 +17,13 @@ model.db.create_all()
 with open('data/movies.json') as f:
     movie_data = json.loads(f.read()) 
 
-print(movie_data[0])
-print(len(movie_data))
+print(type(movie_data))
+
+movie_objects = []
+for m in movie_data:
+    rel_date = datetime.strptime(m['release_date'], "%Y-%m-%d") 
+    movie = crud.create_movie(m['title'], m['overview'], rel_date, m['poster_path'])
+    movie_objects.append(movie)
+
+model.db.session.add_all(movie_objects)
+model.db.session.commit()
