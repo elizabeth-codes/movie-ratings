@@ -27,12 +27,15 @@ def get_movie_by_id(movie_id):
 
     return Movie.query.get(movie_id)
 
-def create_rating(user, movie, score):
+def create_rating(score, movie_id, user_id):
     "Create and return a new rating."
 
-    rating = Rating(user=user, movie=movie, score=score)
+    rating = Rating(score=score, movie_id=movie_id, user_id=user_id)
     
     return rating
+
+def get_user_by_email(email):
+    return User.query.filter(User.email == email).first()
 
 
 if __name__ == '__main__':

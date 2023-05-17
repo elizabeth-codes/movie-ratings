@@ -5,6 +5,22 @@
 {% block body %}
 <h1>{{ movie_jinja.title }}</h1>
 
+{% if user_logged_in %}
+<form action="/rate_movie" method='POST'>
+  <label for="movie_rating">Choose a rating (1=horrible, 5=stellar):</label> 
+  <select name="movie_rating" id="movie_rating"> 
+      <option value="1">1</option> 
+      <option value="2">2</option> 
+      <option value="3">3</option> 
+      <option value="4">4</option> 
+      <option value="5">5</option> 
+  </select>
+  <input type="hidden" name="movie_id" value="{{ movie_jinja.movie_id }}"> 
+  <button type="submit" id="submit-rating">Submit</button>
+
+</form>
+{% endif %}
+
 <p>
   {{ movie_jinja.overview }}
 </p>
