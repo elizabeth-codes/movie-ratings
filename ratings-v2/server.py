@@ -25,10 +25,10 @@ def get_movies():
 @app.route('/movies/<movie_id>')
 def get_movie_by_id(movie_id): 
     movie_dict = crud.get_movie_by_id(movie_id)
-    user_logged_in = 'user_id' in session
-    print(user_logged_in)
+    is_user_eligible_to_rate_this_movie = 'user_id' in session and not crud.get_movie_ratings_by_user(session['user_id'], movie_id)
+    print(is_user_eligible_to_rate_this_movie)
 
-    return render_template('movie_details.html', movie_jinja=movie_dict, user_logged_in=user_logged_in)
+    return render_template('movie_details.html', movie_jinja=movie_dict, is_user_eligible_to_rate_this_movie=is_user_eligible_to_rate_this_movie)
 
 @app.route('/users', methods=["POST"])
 def create_an_account():
